@@ -3,4 +3,3 @@
 /.idea
 yarn.lock
 dist/
-package.json
