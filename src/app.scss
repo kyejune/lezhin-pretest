@@ -1,0 +1,252 @@
+
+
+*{
+    box-sizing: border-box;
+}
+
+.button--common{
+    border-radius: 10px;
+    -webkit-appearance: none;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.button--blue{
+    @extend .button--common;
+
+    padding: 0.2em 0.5em;
+    background-color: dodgerblue;
+    color: white;
+    border: 1px solid dodgerblue;
+
+    &:hover{
+        background-color: white;
+        border-color: dodgerblue;
+        color: dodgerblue;
+    }
+}
+
+
+.app{
+    width: 50%;
+    min-width: 300px;
+    max-width: 400px;
+    margin: 0 auto;
+
+    margin-top: 10%;
+}
+
+.app__header{
+    text-align: center;
+}
+
+
+.entry__box{
+    position: relative;
+    margin-top: 100px;
+
+    &:after{
+        content:'';
+        display: block;
+        clear: both;
+    }
+
+    //
+    .entry{
+        position: relative;
+        display: inline-block;
+        width: 50%;
+        text-align: center;
+        float: left;
+        padding: 30px;
+
+        .particle__box{
+            width: 90%;
+            height: 50%;
+            bottom: 10%;
+
+            .heart {
+                font-size: 26px !important;
+            }
+        }
+    }
+
+    .entry__img{
+        display: inline-block;
+        width: 100%;
+        padding-bottom: 100%;
+        border-radius: 50%;
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-size: cover;
+
+        &.bounce{
+            animation: bounceScale 0.4s ease-in-out;
+        }
+    }
+
+    .entry__name{
+        margin-top: 0;
+        margin-bottom: 0.5em;
+        font-size: 12px;
+    }
+
+    .entry__btn{
+        @extend .button--blue;
+        margin-top: 1em;
+    }
+
+
+    //
+    .entry-between{
+        position: absolute;
+        display: inline-block;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+
+        p{
+            margin: 0;
+            font-size: 12px;
+        }
+
+        .round__text{
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .vs{
+            font-size: 30px;
+            font-weight: 800;
+            color: red;
+        }
+    }
+
+    .back__btn{
+        @extend .button--common;
+        width: 60px;
+        opacity: 0;
+        transition: all 0.6s ease-in-out;
+        pointer-events: none;
+        transform: rotate( 270deg );
+
+        &.discover{
+            opacity: 1;
+            transform: rotate(0);
+            pointer-events: inherit;
+        }
+    }
+
+
+    .display4--finished{
+        display: none;
+    }
+
+    // 최종선택 끝났을때
+    &.status--finished{
+
+        .entry__btn{
+            display: none;
+        }
+
+        .entry-between{
+            display: none;
+        }
+
+        .display4--finished{
+            display: block;
+        }
+
+        .result__title{
+            font-size: 50px;
+            text-align: center;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 0.5em;
+        }
+
+        .entry{
+            transition: all 0.6s ease-in-out;
+            margin-top: 100px;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            padding: 0;
+
+            &.your-partner{
+                z-index: 1;
+                width: 100%;
+                height: auto;
+                margin: 0 auto;
+                opacity: 1;
+
+                .entry__name{
+                    font-size: 30px;
+                }
+            }
+        }
+
+    }
+}
+
+.particle__box{
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    transform: translateX(-50%);
+    bottom: 0;
+    left: 50%;
+    overflow: visible;
+
+    .heart {
+
+        position: absolute;
+        user-select: none;
+
+        @for $i from 1 through 12 {
+            &:nth-child(#{$i}) {
+                bottom: percentage((random(20) + 10)/100);
+                left: percentage(random(95)/100);
+                font-size: random(10) + 10px;
+                animation: hearts random(3) + 2s ease-in infinite;
+            }
+        }
+    }
+}
+
+
+
+
+@keyframes hearts {
+    0% {
+        opacity: 0;
+        transform:translate(0, 0%) scale(0.5, 0.5);
+    }
+    20% {
+        opacity: 0.8;
+        transform:translate(0, -20%) scale( 2, 2 );
+    }
+    100% {
+        opacity: 0;
+        transform:translate(0, -1000%) scale( 1, 1 );
+    }
+}
+
+@keyframes bounceScale {
+    0% {
+        transform: scale( 1, 1 );
+    }
+
+    30% {
+        transform: scale( 1.1, 1.1 );
+    }
+
+    0% {
+        transform: scale( 1, 1 );
+    }
+}
